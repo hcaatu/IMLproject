@@ -9,11 +9,16 @@ from sklearn.neighbors import KNeighborsClassifier
 df = pd.read_csv("train.csv")
 df = df.drop(["id", "date", "partlybad"], axis=1)
 
+# Labels = event type
 y = df["class4"]
+
+# Features = all measurements
 X = df.drop("class4", axis=1)
 
+# Split the training data into train/test
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
+# Fit the kNN model and calculate accuracy based on training data test split
 knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(X_train, y_train)
 knn_preds = knn.predict(X_test)
@@ -22,6 +27,7 @@ knn_cm = confusion_matrix(y_test, knn_preds)
 
 print("kNN Accuracy:", knn_acc)
 
+# Plot the confusion matrix
 plt.figure(figsize=(4,3))
 sns.heatmap(knn_cm, annot=True, cmap="Blues", fmt="d")
 plt.title("kNN")

@@ -9,10 +9,13 @@ from sklearn.svm import SVC
 df = pd.read_csv("train.csv")
 df = df.drop(["id", "date", "partlybad"], axis=1)
 
+# Make a class2 column for binary classifier
 df["class2"] = df["class4"].apply(lambda x: "nonevent" if x == "nonevent" else "event")
-y = df["class2"]
-print(y.head()) 
 
+# Use the binary event/nonevent column as label
+y = df["class2"]
+
+# All measurements as features
 X = df.drop(["class4", "class2"], axis=1)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)

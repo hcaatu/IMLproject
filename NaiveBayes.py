@@ -13,6 +13,7 @@ X = df.drop("class4", axis=1)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
+# Fit Naive Bayes model
 nb = GaussianNB()
 nb.fit(X_train, y_train)
 nb_preds = nb.predict(X_test)
